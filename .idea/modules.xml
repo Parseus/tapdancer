@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TapDancer.iml" filepath="$PROJECT_DIR$/TapDancer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="tapdancer/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tapdancer.iml" filepath="$PROJECT_DIR$/.idea/modules/tapdancer.iml" group="tapdancer" />
     </modules>
   </component>
 </project>
