@@ -1,37 +1,37 @@
 package co.kica.tapdancer;
 
-import co.kica.fileutils.SmartFile;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import co.kica.tap.T64Format;
-import co.kica.tap.T64Format.DirEntry;
-import co.kica.tapdancer.R;
-import co.kica.tapdancer.R.drawable;
-import co.kica.tapdancer.R.layout;
-
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import co.kica.fileutils.SmartFile;
+import co.kica.tap.T64Format;
+import co.kica.tap.T64Format.DirEntry;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class FileChooser extends ListActivity {
 	
 	public final static String PICKED_MESSAGE = "co.kica.tapdancer.PICKED_MESSAGE";
 	public final static String PICKED_SUBITEM = "co.kica.tapdancer.PICKED_SUBITEM";
+
+	private static final int RC_EXTERNAL_STORAGE_PERMISSION = 123;
     
     private SmartFile currentDir;
     private FileArrayAdapter adapter;
@@ -79,7 +79,7 @@ public class FileChooser extends ListActivity {
 		//requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        fill(currentDir);
+        fill();
         
         // after this...
         this.getWindow().setBackgroundDrawableResource(R.drawable.tapdancer_background);
@@ -92,55 +92,68 @@ public class FileChooser extends ListActivity {
     	initFromPreferences();
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        fill(currentDir);    	
+        fill();
     }
-    
-    private long kb(SmartFile f) {
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+	}
+
+	private long kb(SmartFile f) {
     	return f.length() / 1024;
     }
-    
-    private void fill(SmartFile f)
-    {
-        SmartFile[]dirs = f.listFiles();
-         this.setTitle("Current Dir: "+f.getName());
-         List<Option>dir = new ArrayList<Option>();
-         List<Option>fls = new ArrayList<Option>();
-         try{
-             for(SmartFile ff: dirs)
-             {
-                if(ff.isDirectory()) {
-                	if (ff.getName().charAt(0) != '.')
-                    dir.add(new Option(ff.getName(),"Folder",ff.getAbsolutePath()));
-                } else
-                {
-                	if (ff.getName().endsWith(".TAP") || ff.getName().endsWith(".tap") || 
-                			ff.getName().endsWith(".CAS") || ff.getName().endsWith(".cas") || 
-                			ff.getName().endsWith(".UEF") || ff.getName().endsWith(".uef") || 
-                			ff.getName().endsWith(".PRG") || ff.getName().endsWith(".prg") || 
-                			ff.getName().endsWith(".P00") || ff.getName().endsWith(".p00") || 
-                			ff.getName().endsWith(".T64") || ff.getName().endsWith(".t64") || 
-                			ff.getName().endsWith(".TZX") || ff.getName().endsWith(".tzx") || 
-                			ff.getName().endsWith(".CDT") || ff.getName().endsWith(".cdt")	) {
-                		
-                		if (ff.getName().charAt(0) != '.')
-                			fls.add(new Option(ff.getName(),"File Size: "+kb(ff)+"Kb",ff.getAbsolutePath()));
-                	}
-                }
-             }
-         }catch(Exception e)
-         {
-             
-         }
-         Collections.sort(dir);
-         Collections.sort(fls);
-         dir.addAll(fls);
-         
-         if (!f.getAbsolutePath().equals( this.prefExtDir ))
-        	 dir.add(0,new Option("..","Parent Directory",f.getParent()));
-         
-         adapter = new FileArrayAdapter(FileChooser.this,R.layout.file_view,dir);
-         this.setListAdapter(adapter);
+
+    @AfterPermissionGranted(RC_EXTERNAL_STORAGE_PERMISSION)
+    private void fill() {
+		String[] permission = { Manifest.permission.READ_EXTERNAL_STORAGE };
+
+		if (EasyPermissions.hasPermissions(this, permission)) {
+			SmartFile[]dirs = currentDir.listFiles();
+			this.setTitle("Current Dir: "+currentDir.getName());
+			List<Option>dir = new ArrayList<Option>();
+			List<Option>fls = new ArrayList<Option>();
+			try{
+				for(SmartFile ff: dirs)
+				{
+					if(ff.isDirectory()) {
+						if (ff.getName().charAt(0) != '.')
+							dir.add(new Option(ff.getName(),"Folder",ff.getAbsolutePath()));
+					} else
+					{
+						if (ff.getName().endsWith(".TAP") || ff.getName().endsWith(".tap") ||
+								ff.getName().endsWith(".CAS") || ff.getName().endsWith(".cas") ||
+								ff.getName().endsWith(".UEF") || ff.getName().endsWith(".uef") ||
+								ff.getName().endsWith(".PRG") || ff.getName().endsWith(".prg") ||
+								ff.getName().endsWith(".P00") || ff.getName().endsWith(".p00") ||
+								ff.getName().endsWith(".T64") || ff.getName().endsWith(".t64") ||
+								ff.getName().endsWith(".TZX") || ff.getName().endsWith(".tzx") ||
+								ff.getName().endsWith(".CDT") || ff.getName().endsWith(".cdt")	) {
+
+							if (ff.getName().charAt(0) != '.')
+								fls.add(new Option(ff.getName(),"File Size: "+kb(ff)+"Kb",ff.getAbsolutePath()));
+						}
+					}
+				}
+			}catch(Exception e) { }
+
+			Collections.sort(dir);
+			Collections.sort(fls);
+			dir.addAll(fls);
+
+			if (!currentDir.getAbsolutePath().equals( this.prefExtDir ))
+				dir.add(0,new Option("..","Parent Directory",currentDir.getParent()));
+
+			adapter = new FileArrayAdapter(FileChooser.this,R.layout.file_view,dir);
+			this.setListAdapter(adapter);
+		} else {
+			EasyPermissions.requestPermissions(this,
+					getString(R.string.external_storage_permission_explanation),
+					RC_EXTERNAL_STORAGE_PERMISSION, permission);
+		}
     }
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         // TODO Auto-generated method stub
@@ -148,7 +161,7 @@ public class FileChooser extends ListActivity {
         Option o = adapter.getItem(position);
         if(o.getData().equalsIgnoreCase("folder")||o.getData().equalsIgnoreCase("parent directory")){
                 currentDir = new SmartFile(o.getPath());
-                fill(currentDir);
+                fill();
         }
         else
         {

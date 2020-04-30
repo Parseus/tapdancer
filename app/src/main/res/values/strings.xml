@@ -9,6 +9,7 @@
     <string name="menu_quit">Quit</string>
     <string name="help">Help</string>
     <string name="web">www</string>
+    <string name="external_storage_permission_explanation">Please grant a storage permission to be able to access your files.</string>
     <string name="c64options">C64 Options (incl TurboTape!)</string>
     <string name="first_silence">Pause at first silence</string>
     <string name="long_silence_only">Pause for long silences only</string>
