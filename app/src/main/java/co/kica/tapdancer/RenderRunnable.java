@@ -58,7 +58,7 @@ public class RenderRunnable implements Runnable {
 		//String fn = (new File(tapfile)).getName().replace(".tap", ".wav").replace(".TAP", ".wav").replace(".CAS", ".wav").replace(".cas", ".wav");
 		
 		// test if output dir exists
-		String outputdir = Environment.getExternalStorageDirectory()+"/TapDancer";
+		String outputdir = Environment.getExternalStorageDirectory() + File.separator + "TapDancer";
 		
 		File od = new File(outputdir);
 		if (!od.exists()) {

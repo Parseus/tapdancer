@@ -107,7 +107,7 @@ public class FileChooser extends ListActivity {
 
     @AfterPermissionGranted(RC_EXTERNAL_STORAGE_PERMISSION)
     private void fill() {
-		String[] permission = { Manifest.permission.READ_EXTERNAL_STORAGE };
+		String[] permission = { Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
 		if (EasyPermissions.hasPermissions(this, permission)) {
 			SmartFile[]dirs = currentDir.listFiles();
