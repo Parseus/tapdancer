@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <PreferenceCategory android:title="@string/genoptions" android:summary="@string/gen_summary" android:order="100">
-        <CheckBoxPreference android:summaryOff="@string/pause_instant" android:title="@string/pause_behaviour" android:summary="@string/pause_behaviour_summary" android:key="prefPauseNextSilence" android:summaryOn="@string/pause_next_silence" android:order="100" android:defaultValue="false" />
+
+    <PreferenceCategory
+        android:title="@string/genoptions"
+        android:summary="@string/gen_summary"
+        android:order="100">
+        <CheckBoxPreference
+            android:summaryOff="@string/pause_instant"
+            android:title="@string/pause_behaviour"
+            android:summary="@string/pause_behaviour_summary"
+            android:key="prefPauseNextSilence"
+            android:summaryOn="@string/pause_next_silence"
+            android:order="100"
+            android:defaultValue="false" />
         <ListPreference android:dialogTitle="@string/choose_storage" android:key="prefStorageInUse" android:summary="@string/storage_location_summary" android:title="@string/storage_location" android:order="300"/>
         <CheckBoxPreference android:key="prefInvertWaveform" android:defaultValue="false" android:summaryOn="@string/do_rev_signal" android:summaryOff="@string/not_rev_signal" android:order="300" android:title="@string/signal_polarity"/>
-    </PreferenceCategory><PreferenceCategory android:title="@string/autopauseoptions" android:summary="@string/tap_summary" android:order="200">
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/autopauseoptions" android:summary="@string/tap_summary" android:order="200">
         <CheckBoxPreference android:summaryOff="@string/play_thru_silence" android:title="@string/auto_pause" android:summary="@string/silence_behaviour" android:key="prefPauseDuringSilence" android:disableDependentsState="false" android:summaryOn="@string/pause_during_silence" android:order="100"/>
         <CheckBoxPreference android:key="prefPauseFirstSilence" android:summaryOff="@string/pause_first_optional" android:summaryOn="@string/pause_first_silence" android:dependency="prefPauseDuringSilence" android:order="200" android:title="@string/fs_pause" android:summary="@string/first_silence"/>
         <CheckBoxPreference android:summaryOff="@string/pause_all_silences" android:title="@string/long_silences_only" android:dependency="prefPauseDuringSilence" android:summary="@string/long_silence_def" android:key="prefLongSilencesOnly" android:summaryOn="@string/pause_long_only" android:order="300"/>
@@ -17,6 +30,5 @@
     <PreferenceCategory android:title="@string/tzx_heading" android:summary="@string/tzx_summary" android:order="400">
         <CheckBoxPreference android:key="prefUseLowSampleRate" android:summaryOn="@string/tzx_22khz" android:summaryOff="@string/tzx_44khz" android:order="100" android:title="@string/tzx_samples"/>
     </PreferenceCategory>
-    
-    
+
 </PreferenceScreen>

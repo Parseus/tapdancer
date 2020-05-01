@@ -1,15 +1,9 @@
 package co.kica.tapdancer;
 
-import java.io.File;
-
-import co.kica.tap.IntermediateBlockRepresentation;
-
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
@@ -17,7 +11,6 @@ import android.media.AudioTrack;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.preference.PreferenceManager;
@@ -30,11 +23,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class PlayActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import co.kica.tap.IntermediateBlockRepresentation;
+
+public class PlayActivity extends AppCompatActivity {
 	
 	private static final int RESULT_SETTINGS = 0;
 	private AudioTrack audio; 

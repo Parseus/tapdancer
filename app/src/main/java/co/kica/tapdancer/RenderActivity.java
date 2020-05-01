@@ -1,16 +1,5 @@
 package co.kica.tapdancer;
 
-import java.io.File;
-
-import co.kica.tap.C64Tape;
-
-import co.kica.tap.*;
-import co.kica.tapdancer.R;
-import co.kica.tapdancer.R.drawable;
-import co.kica.tapdancer.R.id;
-import co.kica.tapdancer.R.layout;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,13 +9,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class RenderActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import co.kica.tap.C64Tape;
+
+public class RenderActivity extends AppCompatActivity {
 	private C64Tape tap;
 	private String filename;
 	private String converted;

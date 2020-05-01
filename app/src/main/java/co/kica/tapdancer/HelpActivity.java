@@ -1,16 +1,13 @@
 package co.kica.tapdancer;
 
-import co.kica.tapdancer.R;
-import co.kica.tapdancer.R.id;
-import co.kica.tapdancer.R.layout;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
 
-public class HelpActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class HelpActivity extends AppCompatActivity {
 
 	private WebView wv;
 	
@@ -22,7 +19,7 @@ public class HelpActivity extends Activity {
        
         this.setContentView(R.layout.activity_help);
         
-        wv = (WebView)this.findViewById(R.id.webView1);
+        wv = this.findViewById(R.id.webView1);
         wv.loadUrl("file:///android_asset/html/index.html");
         
         wv.clearHistory();
