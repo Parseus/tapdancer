@@ -169,7 +169,7 @@ class FileChooser : ListActivity() {
         alertDialog.setTitle("Select T64 Subfile")
 
         // Setting Icon to Dialog
-        alertDialog.setIcon(R.drawable.ic_launcher)
+        alertDialog.setIcon(R.mipmap.ic_launcher)
         val storageList = arrayOfNulls<String>(dir.size)
         var i = 0
         for (d in dir) {
