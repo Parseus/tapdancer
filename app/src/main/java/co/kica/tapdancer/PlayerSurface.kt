@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Context.AUDIO_SERVICE
 import android.graphics.Paint
 import android.graphics.Rect
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.media.AudioManager
 import android.os.Vibrator
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import androidx.core.content.res.ResourcesCompat
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -32,7 +32,6 @@ class PlayerSurface(context: Context,
     private var touched_y = 0f
     private var touched = false
     private var scrolly = "               Welcome to TapDancer ... Press EJECT to load a file... "
-    private val typeface: Typeface
     private val audio: AudioManager
     private var www_h = 0
     private val counter_x = 450
@@ -86,7 +85,7 @@ class PlayerSurface(context: Context,
                 www_h = (canvas.width - canvas.height) / 3
                 www.setBounds(0, canvas.height - www_h, www_h - 1, canvas.height)
                 www.draw(canvas)
-                paint.typeface = typeface
+                paint.typeface = ResourcesCompat.getFont(context, R.font.atarcc)
 
                 // draw help
                 help.setBounds(0, 0, www_h - 1, www_h - 1)
@@ -259,7 +258,6 @@ class PlayerSurface(context: Context,
         www = res.getDrawable(R.drawable.td_www)
         help = res.getDrawable(R.drawable.td_help)
         menu = res.getDrawable(R.drawable.td_menu)
-        typeface = Typeface.createFromAsset(res.assets, "fonts/atarcc.ttf")
         audio = context.getSystemService(AUDIO_SERVICE) as AudioManager
     }
 }

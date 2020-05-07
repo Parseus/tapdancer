@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -14,6 +13,7 @@ import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import co.kica.tap.C64Tape
 
 class RenderActivity : AppCompatActivity() {
@@ -21,7 +21,6 @@ class RenderActivity : AppCompatActivity() {
     private lateinit var filename: String
     private val converted: String? = null
     private var pb: ProgressBar? = null
-    private var typeface: Typeface? = null
     var messenger: Messenger? = null
         private set
     private val handler: Handler = object : Handler() {
@@ -86,10 +85,9 @@ class RenderActivity : AppCompatActivity() {
         this.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         this.window.setBackgroundDrawableResource(R.drawable.tapdancer_background)
 
-        typeface = Typeface.createFromAsset(this.assets, "fonts/atarcc.ttf")
         val fn = findViewById<View>(R.id.filename) as TextView
         fn.text = filename.replaceFirst(".+[/]".toRegex(), "")
-        fn.typeface = typeface
+        fn.typeface = ResourcesCompat.getFont(this, R.font.atarcc)
 
         // get progress bar reference
         pb = findViewById<View>(R.id.progressBar1) as ProgressBar
