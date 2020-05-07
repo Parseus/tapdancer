@@ -28,6 +28,11 @@ class PlayActivity : AppCompatActivity() {
     private var mBoundService: PlaybackRunnable? = null
     private var task: Thread? = null
 
+    // Fix for AudioManager leaking an activity context on Android <6.0
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(AudioServiceActivityLeak.preventLeakOf(newBase))
+    }
+
     //private boolean mBound = false;
     val state = 0
     private fun showAiplaneSuggestion() {
