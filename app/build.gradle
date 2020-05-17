@@ -8,6 +8,13 @@ android {
         applicationId "co.kica.tapdancer"
         minSdkVersion 21
         targetSdkVersion 29
+
+        versionCode 181
+        versionName "1.8.1"
+
+        resConfigs "en"
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {
@@ -20,8 +27,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            versionNameSuffix "-dev"
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.txt'
         }
     }
