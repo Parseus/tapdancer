@@ -22,7 +22,7 @@ class SmartFileInputStream : InputStream {
         }
     }
 
-    constructor(var1: String?) {
+    constructor(var1: String) {
         val var2 = SmartFile(var1)
         file = var2
         if (var2.exists() && var2.isFile) {
@@ -47,7 +47,7 @@ class SmartFileInputStream : InputStream {
     @Throws(IOException::class)
     override fun read(): Int {
         val var1: Int
-        if (byteptr < size && byteptr >= 0L) {
+        if (byteptr in 0L until size) {
             val var4 = buffer
             val var2 = byteptr
             byteptr = 1L + var2
@@ -75,7 +75,7 @@ class SmartFileInputStream : InputStream {
             if (var4 == 0) {
                 var2 = -1
             } else {
-                val var9 = Arrays.copyOfRange(buffer, byteptr.toInt(), (byteptr + var4.toLong()).toInt())
+                val var9 = buffer!!.copyOfRange(byteptr.toInt(), (byteptr + var4.toLong()).toInt())
                 var var3 = 0
                 val var5 = var9.size
                 var2 = 0
@@ -104,8 +104,7 @@ class SmartFileInputStream : InputStream {
             var3 = 0
         }
         var4 = var2
-        var var5: Int
-        var5 = 0
+        var var5 = 0
         while (var4 < var2 + var3) {
             val var6 = this.read()
             if (var6 < 0) {

@@ -127,7 +127,7 @@ class T64Format(fn: String, smart: Boolean) {
             return byteArrayToString(d)
         }
 
-    fun validHeader(): Boolean {
+    fun hasValidHeader(): Boolean {
         val magic = mAGIC
         val valid = byteArrayOf(0x43, 0x36, 0x34 /*, 0x53*/)
         return magic.contentEquals(valid)

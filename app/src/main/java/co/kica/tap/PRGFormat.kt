@@ -25,7 +25,7 @@ class PRGFormat(fn: String, idx: Int) {
     init {
         if (fn.toUpperCase(Locale.getDefault()).endsWith(".T64")) {
             val t64 = T64Format(fn, true)
-            if (t64.validHeader()) {
+            if (t64.hasValidHeader()) {
                 val dir = t64.dir
                 val d = dir[idx]
                 start = d.programLoadAddress

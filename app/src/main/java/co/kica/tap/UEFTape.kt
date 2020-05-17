@@ -154,7 +154,6 @@ class UEFTape : GenericTape() {
             try {
                 handleChunk(chunk, w)
             } catch (e: Exception) {
-                // TODO Auto-generated catch block
                 e.printStackTrace()
             }
 

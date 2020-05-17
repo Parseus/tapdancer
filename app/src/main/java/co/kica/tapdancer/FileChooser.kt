@@ -35,7 +35,7 @@ class FileChooser : ListActivity() {
         if (!lastPath.startsWith(testExtDir)) {
             lastPath = prefExtDir
         }
-        val lp = SmartFile(lastPath)
+        val lp = SmartFile(lastPath!!)
         currentDir = if (lp.exists()) {
             lp
         } else {
@@ -122,7 +122,7 @@ class FileChooser : ListActivity() {
         // TODO Auto-generated method stub
         super.onListItemClick(l, v, position, id)
         val o = adapter!!.getItem(position)
-        if (o!!.data.equals("folder", ignoreCase = true) || o.data.equals("parent directory", ignoreCase = true)) {
+        if (o.data.equals("folder", ignoreCase = true) || o.data.equals("parent directory", ignoreCase = true)) {
             currentDir = SmartFile(o.path)
             fill()
         } else {
@@ -137,7 +137,7 @@ class FileChooser : ListActivity() {
         // create an intent so that we can display the render...
         if (o!!.path.toUpperCase().endsWith(".T64")) {
             val t64 = T64Format(o.path, true)
-            if (!t64.validHeader()) {
+            if (!t64.hasValidHeader()) {
                 val intent = Intent(this, RenderActivity::class.java)
                 intent.putExtra(PICKED_MESSAGE, o.path)
                 startActivity(intent)

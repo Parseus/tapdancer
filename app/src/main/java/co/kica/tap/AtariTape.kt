@@ -118,7 +118,7 @@ class AtariTape : GenericTape() {
     override val minPadding: Int = 0
 
     fun asByte(b: Byte): Short {
-        return (b.toInt() and 0xff) as Short
+        return (b.toInt() and 0xff).toShort()
     }
 
     fun hasData(): Boolean {
@@ -137,11 +137,11 @@ class AtariTape : GenericTape() {
         return b
     }
 
-    fun getFloatFromChunk(data: ByteArray?): Float {
+    fun getFloatFromChunk(data: ByteArray): Float {
         val b = ByteBuffer.allocate(4)
         b.order(ByteOrder.LITTLE_ENDIAN)
         b.mark()
-        b.put(Arrays.copyOfRange(data, 0, 3))
+        b.put(data.copyOfRange(0, 3))
         b.reset()
         return b.float
     }
