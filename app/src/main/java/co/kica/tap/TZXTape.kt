@@ -213,8 +213,8 @@ open class TZXTape(sampleRate: Int) : GenericTape() {
                 dataPos += 0x10
                 size = getDataDWORD(data)
             }
-            0x5d -> {
-                chunk.description = "Glue block??!!"
+            0x5a -> {
+                chunk.description = "\"Glue\" block"
                 size = 9
             }
             else -> {
